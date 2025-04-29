@@ -1,100 +1,81 @@
 ---
-title: 'Tổng quan về ứng dụng phân tán'
-date: '2025-4-29'
-updated: '2025-4-29'
+title: 'Tổng quan về hệ thống phân tán'
+date: '2025-04-29'
+updated: '2025-04-29'
 categories:
   - 'sveltekit'
   - 'markdown'
-coverImage: '/static/images/123.jpeg'
+coverImage: '/images/1.jpg'
 coverWidth: 16
 coverHeight: 9
-excerpt: Ấn vào để xem thêm
+excerpt: Ấn để xem thêm..
 ---
 
-## 1.Hệ thống phân tán là gì?
+## 1. Hệ thống phân tán là gì?
 
-Hệ thống phân tán (Distributed System) là tập hợp các máy tính độc lập, được kết nối qua mạng, phối hợp để thực hiện một nhiệm vụ chung. Mặc dù các thành phần có thể nằm ở các vị trí địa lý khác nhau, người dùng tương tác với hệ thống như một thể thống nhất.
+Hệ thống phân tán (Distributed System) là một tập hợp các máy tính độc lập (node) được kết nối với nhau thông qua mạng truyền thông, hoạt động phối hợp để cung cấp dịch vụ như một hệ thống thống nhất đối với người dùng cuối.
 
-### 2.Ứng dụng của hệ thống phân tán
+---
 
-Hệ thống phân tán được ứng dụng rộng rãi trong nhiều lĩnh vực:
+## 2. Các ứng dụng của hệ thống phân tán
 
--Dịch vụ web: Google, Facebook, Amazon sử dụng hệ thống phân tán để xử lý hàng triệu yêu cầu mỗi giây.​
+- Hệ thống tìm kiếm như Google.
+- Mạng xã hội như Facebook, Zalo.
+- Dịch vụ thương mại điện tử: Tiki, Shopee.
+- Dịch vụ ngân hàng và ví điện tử: Momo, Internet Banking.
+- Hệ thống chơi game trực tuyến: Liên Quân Mobile, PUBG.
+- Hệ thống lưu trữ đám mây: Google Drive, Dropbox.
+- Blockchain và tiền mã hóa: Bitcoin, Ethereum.
 
--Điện toán đám mây: AWS, Azure, Google Cloud cung cấp tài nguyên tính toán phân tán theo nhu cầu.​
+---
 
--Blockchain: Bitcoin, Ethereum là các hệ thống phân tán không tập trung, đảm bảo tính toàn vẹn dữ liệu.​
+## 3. Các khái niệm chính của hệ thống phân tán
 
--Ứng dụng doanh nghiệp: Hệ thống ERP, CRM phân tán giúp các tổ chức quản lý dữ liệu và quy trình kinh doanh hiệu quả.​
+### Giải thích thuật ngữ
 
-### 3.Các khái niệm chính trong hệ thống phân tán
+- **Scalability**: Khả năng mở rộng hệ thống khi số lượng người dùng tăng.
+- **Fault Tolerance**: Khả năng tiếp tục hoạt động khi một thành phần gặp lỗi.
+- **Availability**: Khả năng cung cấp dịch vụ liên tục không gián đoạn.
+- **Transparency**: Tính trong suốt – người dùng không biết tài nguyên ở đâu, được xử lý như thế nào.
+- **Concurrency**: Khả năng nhiều người dùng cùng truy cập và thao tác đồng thời.
+- **Parallelism**: Khả năng thực thi nhiều tác vụ cùng lúc để tăng hiệu suất.
+- **Openness**: Khả năng mở rộng và tích hợp với các hệ thống khác dễ dàng.
+- **Vertical Scaling**: Nâng cấp phần cứng máy chủ hiện có.
+- **Horizontal Scaling**: Thêm nhiều máy chủ để chia tải.
+- **Load Balancer**: Cân bằng tải – phân phối yêu cầu người dùng đến các server khác nhau.
+- **Replication**: Sao chép dữ liệu để tăng độ tin cậy và hiệu suất.
 
--Scalability (Khả năng mở rộng): Khả năng hệ thống xử lý hiệu quả khi khối lượng công việc tăng lên.​
-Medium
+### Ví dụ: Hệ thống đặt vé máy bay trực tuyến
 
--Fault Tolerance (Khả năng chịu lỗi): Hệ thống tiếp tục hoạt động bình thường ngay cả khi một số thành phần gặp sự cố.​
+- Khi người dùng tìm kiếm chuyến bay, một server xử lý tìm kiếm được sử dụng.
+- Khi người dùng đặt vé, một server khác xử lý đặt vé và thanh toán.
+- Hệ thống có thể scale ngang để xử lý nhiều người đặt cùng lúc (**Scalability**).
+- Nếu một server lỗi, server khác vẫn tiếp tục hoạt động (**Fault Tolerance**).
+- Người dùng không biết hệ thống xử lý ở đâu (**Transparency**).
+- Sử dụng **Load Balancer** để phân chia yêu cầu đến các node.
+- Dữ liệu vé được sao lưu ở nhiều nơi (**Replication**).
 
--Availability (Tính sẵn sàng): Khả năng hệ thống luôn sẵn sàng phục vụ người dùng.​
+---
 
--Transparency (Tính trong suốt): Người dùng không nhận thấy sự phức tạp bên trong hệ thống.​
+## 4. Kiến trúc của hệ thống phân tán
 
--Concurrency (Tính đồng thời): Hệ thống xử lý nhiều tác vụ cùng lúc mà không gây xung đột.​
+### Một số kiến trúc phổ biến:
 
--Parallelism (Tính song song): Thực hiện nhiều tác vụ cùng lúc để tăng hiệu suất.​
+1. **Client–Server**: Máy khách gửi yêu cầu, máy chủ xử lý.
+2. **Three-Tier Architecture**: Giao diện người dùng, xử lý logic, cơ sở dữ liệu.
+3. **Microservices**: Chia nhỏ hệ thống thành các dịch vụ nhỏ, độc lập.
+4. **Peer-to-Peer (P2P)**: Các máy vừa là client, vừa là server.
+5. **Event-Driven Architecture**: Dựa trên cơ chế phát/nhận sự kiện.
+6. **Serverless**: Sử dụng các hàm serverless chạy trên nền tảng cloud.
 
--Openness (Tính mở): Hệ thống dễ dàng tích hợp với các hệ thống khác và hỗ trợ mở rộng.​
+### Ví dụ kiến trúc Microservices
 
--Vertical Scaling (Mở rộng theo chiều dọc): Tăng cường tài nguyên (CPU, RAM) cho một máy chủ.​
-Medium
+Ứng dụng đặt đồ ăn (giống GrabFood):
 
--Horizontal Scaling (Mở rộng theo chiều ngang): Thêm nhiều máy chủ để chia sẻ tải công việc.​
+- Dịch vụ người dùng (User Service)
+- Dịch vụ menu nhà hàng (Restaurant Service)
+- Dịch vụ đặt hàng (Order Service)
+- Dịch vụ thanh toán (Payment Service)
+- Mỗi service được triển khai riêng biệt, có thể scale và cập nhật độc lập.
 
--Load Balancer (Bộ cân bằng tải): Phân phối lưu lượng truy cập đều giữa các máy chủ.​
-
--Replication (Sao chép dữ liệu): Tạo bản sao dữ liệu để tăng tính sẵn sàng và độ tin cậy.​
-
-### 4.Ví dụ minh họa: Hệ thống thương mại điện tử
-
-Xem xét một trang web thương mại điện tử như Amazon:
-
--Scalability: Hệ thống tự động mở rộng khi có nhiều người dùng truy cập.​
-
--Fault Tolerance: Nếu một máy chủ gặp sự cố, hệ thống vẫn hoạt động nhờ các máy chủ khác.​
-
--Availability: Trang web luôn sẵn sàng 24/7.​
-
--Transparency: Người dùng không nhận thấy sự phân tán của hệ thống.​
-
--Concurrency: Nhiều người dùng có thể mua hàng cùng lúc.​
-
--Parallelism: Xử lý nhiều đơn hàng đồng thời để tăng tốc độ.​
-
--Openness: Hệ thống tích hợp với các dịch vụ thanh toán và vận chuyển khác.​
-
--Vertical Scaling: Tăng cường tài nguyên cho máy chủ cơ sở dữ liệu khi cần.​
-
--Horizontal Scaling: Thêm nhiều máy chủ web để xử lý lưu lượng lớn.​
-
--Load Balancer: Phân phối yêu cầu người dùng đến các máy chủ khác nhau.​
-
--Replication: Dữ liệu người dùng được sao chép để đảm bảo không mất mát.
-
-### 5.Kiến trúc của hệ thống phân tán
-
-Các mô hình kiến trúc phổ biến:
-
--Client-Server: Máy khách gửi yêu cầu, máy chủ xử lý và phản hồi.​
-Amazon Web Services, Inc.
-
--Peer-to-Peer (P2P): Các nút mạng hoạt động ngang hàng, chia sẻ tài nguyên trực tiếp.​
-Viblo
-
--Three-Tier: Gồm tầng trình bày, tầng logic nghiệp vụ và tầng dữ liệu.​
-
--Microservices: Ứng dụng được chia thành các dịch vụ nhỏ, độc lập.​
-
--Service-Oriented Architecture (SOA): Các dịch vụ giao tiếp qua giao thức mạng để thực hiện chức năng.​
-
--Event-Driven Architecture: Hệ thống phản ứng với các sự kiện, phù hợp với ứng dụng thời gian thực.​
-
--Serverless: Chạy mã mà không cần quản lý máy chủ, tự động mở rộng theo nhu cầu.​
+---
