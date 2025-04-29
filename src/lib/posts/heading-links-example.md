@@ -1,7 +1,7 @@
 ---
 title: 'Tổng quan về ứng dụng phân tán'
-date: '2023-10-26'
-updated: '2023-10-26'
+date: '2025-4-29'
+updated: '2025-4-29'
 categories:
   - 'sveltekit'
   - 'markdown'
