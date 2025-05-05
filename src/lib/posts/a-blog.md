@@ -3,12 +3,11 @@ title: 'Tổng quan về hệ thống phân tán'
 date: '2025-04-29'
 updated: '2025-04-29'
 categories:
-  - 'sveltekit'
-  - 'markdown'
-coverImage: '/images/1.jpg'
+  - 'Lê Hùng DuyDuy'
+coverImage: '/images/pig1.png'
 coverWidth: 16
 coverHeight: 9
-excerpt: Ấn để xem thêm..
+excerpt: Ấn để xem thêm...
 ---
 
 ## 1. Hệ thống phân tán là gì?
