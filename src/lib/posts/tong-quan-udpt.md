@@ -3,7 +3,7 @@ title: 'Tổng quan về hệ thống phân tán'
 date: '2025-04-29'
 updated: '2025-04-29'
 categories:
-  - 'Lê Hùng DuyDuy'
+  - 'Lê Hùng Duy'
 coverImage: '/images/pig1.png'
 coverWidth: 16
 coverHeight: 9
