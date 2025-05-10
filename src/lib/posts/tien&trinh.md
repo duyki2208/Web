@@ -4,7 +4,7 @@ date: '2025-5-5'
 updated: '2025-5-5'
 categories:
   - 'Lê Hùng Duy'
-coverImage: '/images/tien-trinh-va-luong-1.jpg'
+coverImage: '/images/123.jpeg'
 coverWidth: 16
 coverHeight: 9
 excerpt: Ấn vào để xem thêm...
@@ -12,7 +12,7 @@ excerpt: Ấn vào để xem thêm...
 
 ## CPU, GPU, RAM, Hiệu năng sử dụng của máy
 
-Thiết bị Dell Vostro 5415
+Thiết bị Dell Vostro 5415()
 
 Thông số kỹ thuật
 
