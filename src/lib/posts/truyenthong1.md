@@ -10,8 +10,6 @@ coverHeight: 9
 excerpt: Ấn để xem thêm...
 ---
 
-## 1. Dưới đây là nội dung chi tiết cho cả 3 bài tập, bao gồm phần báo cáo và code minh họa. Mình sẽ dùng **RabbitMQ** cho bài 1 và 2, và dùng **gRPC (với JSON)** cho bài 3.
-
 ---
 
 ## **BÀI TẬP 1: TÌM HIỂU RABBITMQ**
