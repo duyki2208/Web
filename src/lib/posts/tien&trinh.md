@@ -4,7 +4,7 @@ date: '2025-5-5'
 updated: '2025-5-5'
 categories:
   - 'Lê Hùng Duy'
-coverImage: '/images/123.jpeg'
+coverImage: '/images/jefferson-santos-fCEJGBzAkrU-unsplash.jpg'
 coverWidth: 16
 coverHeight: 9
 excerpt: Ấn vào để xem thêm...
