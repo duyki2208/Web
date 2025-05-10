@@ -1,26 +1,27 @@
 <script>
-	export let posts = [];
+	let { posts = [] } = $props();
 </script>
+
 
 <ul class="posts-list">
 	{#each posts as post}
 		<li>
-			<a href="/blog/{post.slug}">
-				{#if post.coverImage}
+			<article>
+				<a href="/blog/{post.slug}">
 					<img
-						src={post.coverImage}
-						alt=""
-						style="aspect-ratio: {post.coverWidth} / {post.coverHeight};"
-						width={post.coverWidth}
-						height={post.coverHeight}
+					src={post.coverImage}
+					alt=""
+					width={post.coverWidth}
+					height={post.coverHeight}
+					style="ratio: {post.coverWidth} / {post.coverHeight}"
 					/>
-				{/if}
-				<div class="post-meta">
-					<h2>{post.title}</h2>
-					<p>{post.excerpt}</p>
-					<time datetime={post.date}>{post.date}</time>
-				</div>
-			</a>
+					<h2>
+						{post.title}
+					</h2>
+				</a>
+			</article>
+
+			<p>{post.excerpt}</p>
 		</li>
 	{/each}
 </ul>
