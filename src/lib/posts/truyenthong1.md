@@ -4,7 +4,7 @@ date: '2025-05-6'
 updated: '2025-05-6'
 categories:
   - 'Lê Hùng Duy'
-coverImage: '/images/pig.png'
+coverImage: '/images/wallpaper.jpg'
 coverWidth: 16
 coverHeight: 9
 excerpt: Ấn để xem thêm...
