@@ -1,58 +1,76 @@
 ---
-title: 'Truyền thông'
-date: '2025-05-6'
-updated: '2025-05-6'
+title: 'Truyền Thông'
+date: '2025-04-29'
 categories:
-  - 'Lê Hùng Duy'
+  - 'Hệ thống phân tán'
+  - 'Đa luồng & đa tiến trình'
 coverImage: '/images/wallpaper.jpg'
-coverWidth: 16
-coverHeight: 9
-excerpt: Ấn để xem thêm...
+excerpt: truyền thông
 ---
 
-## **BÀI TẬP 1: TÌM HIỂU RABBITMQ**
+## Bài tập 1: Tìm hiểu RabbitMQ - Dịch vụ truyền thông điệp
 
-### **1. Giới thiệu**
+## 1. Giới thiệu về RabbitMQ:
 
-RabbitMQ là một hệ thống hàng đợi tin nhắn (message queue) mã nguồn mở, được triển khai theo mô hình **Message Broker**, hỗ trợ nhiều giao thức như AMQP, MQTT, STOMP, v.v.
+RabbitMQ là một message broker được sử dụng để truyền thông tin giữa các hệ thống phân tán. Nó hỗ trợ các giao thức như AMQP, MQTT, STOMP, v.v. RabbitMQ cho phép các ứng dụng giao tiếp với nhau mà không cần biết trực tiếp về nhau.
 
-### **2. Cơ chế hoạt động**
+## 2. Cơ chế hoạt động:
 
-RabbitMQ hoạt động theo mô hình:
+Producer: Gửi message.
 
-- **Producer**: Gửi thông điệp đến một **Exchange**.
-- **Exchange**: Định tuyến thông điệp đến **Queue** dựa vào **Routing Key**.
-- **Queue**: Nơi lưu trữ các thông điệp.
-- **Consumer**: Lấy thông điệp ra khỏi Queue để xử lý.
+Exchange: Nhận message từ producer và quyết định chuyển message đi đâu.
 
-### **3. Các thành phần chính**
+Queue: Hàng đợi chờ message.
 
-- **Broker**: Máy chủ RabbitMQ.
-- **Exchange**: Có 4 loại: direct, topic, fanout, headers.
-- **Queue**: Hàng đợi chứa thông điệp.
-- **Binding**: Kết nối Exchange và Queue với Routing Key.
+Consumer: Nhận message từ queue.
 
-### **4. Cài đặt**
+Message đi từ Producer → Exchange → Queue → Consumer. Việc truyền thông là không đồng bộ, giúp giảm độ phụ thuộc giữa các thành phần.
 
-**Cách cài đặt RabbitMQ với Docker:**
+## 3. Lợi ích:
+
+Tách biệt các hệ thống.
+
+Giao tiếp linh hoạt, dễ mở rộng.
+
+Quản lý message tin cậy (ACK, retry, dead-letter).
+
+## 4. Cài đặt RabbitMQ trên macOS:
 
 ```bash
-docker run -d --hostname rabbitmq-host --name rabbitmq \
-  -p 5672:5672 -p 15672:15672 \
-  rabbitmq:3-management
+brew install rabbitmq
+brew services start rabbitmq
+open http://localhost:15672
 ```
+
+## 5. Cấu trúc cơ bản của RabbitMQ:
+
+Direct exchange: route theo tên routing key.
+
+Fanout exchange: broadcast tới tất cả queues.
+
+Topic exchange: match theo mẫu chuỗi.
+
+Headers exchange: route theo thuộc tính header.
+
+## 6. Tình huống sử dụng RabbitMQ:
+
+Hệ thống thanh toán.
+
+Hệ thống gửi email/sms.
+
+Truyền thông sự kiện trong microservices.
+
+## 7. Tổng kết:
+
+RabbitMQ là một lựa chọn phổ biến trong các hệ thống phân tán vì tính tin cậy, dễ triển khai và linh hoạt. Việc tìm hiểu RabbitMQ là cần thiết để thiết kế các hệ thống quy mô lớn hoặc xử lý song song.
 
 ---
 
-## **BÀI TẬP 2: CODE MINH HỌA VỚI RABBITMQ**
+## Bài tập 2: Code hệ thống đơn giản dùng RabbitMQ
 
-### **Cài thư viện Python**
+## Gửi và nhận tin nhắn giữa 2 thành phần Python.
 
-```bash
-pip install pika
-```
-
-### **Producer (send.py)**
+## Mã nguồn Producer (send.py)
 
 ```python
 import pika
@@ -62,98 +80,82 @@ channel = connection.channel()
 
 channel.queue_declare(queue='hello')
 
-channel.basic_publish(exchange='', routing_key='hello', body='Hello RabbitMQ!')
+channel.basic_publish(exchange='',
+                      routing_key='hello',
+                      body='Hello RabbitMQ!')
 print(" [x] Sent 'Hello RabbitMQ!'")
 connection.close()
 ```
 
-### **Consumer (receive.py)**
+## Mã nguồn Consumer (receive.py)
 
 ```python
 import pika
+
+def callback(ch, method, properties, body):
+    print(f" [x] Received {body}")
 
 connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 channel = connection.channel()
 
 channel.queue_declare(queue='hello')
 
-def callback(ch, method, properties, body):
-    print(f" [x] Received {body.decode()}")
-
-channel.basic_consume(queue='hello', on_message_callback=callback, auto_ack=True)
+channel.basic_consume(queue='hello',
+                      on_message_callback=callback,
+                      auto_ack=True)
 
 print(' [*] Waiting for messages. To exit press CTRL+C')
 channel.start_consuming()
 ```
 
+## Cách chạy hệ thống
+
+Mở hai terminal:
+
+Terminal 1: python receive.py
+
+Terminal 2: python send.py
+
 ---
 
-## **BÀI TẬP 3: RPC VỚI JSON – DÙNG gRPC + JSON**
+## Bài tập 3: RPC với định dạng JSON
 
-### **Thư viện gRPC hỗ trợ JSON**
+Ngoài xmlrpc, có thư viện như json-rpc hoặc gRPC với JSON.
 
-Dù gRPC mặc định dùng Protobuf, nhưng có thể dùng JSON với thư viện **grpc-gateway** (trong Go) hoặc thư viện **grpclib** (Python) kết hợp với JSON serialization. Ở đây, ta dùng Python với thư viện `grpclib` và xử lý JSON thủ công.
+Gợi ý: Sử dụng jsonrpcserver và requests
 
-### **1. Cài đặt thư viện**
-
-```bash
-pip install grpclib
-```
-
-### **2. Định nghĩa RPC JSON đơn giản (Python)**
-
-#### **rpc_server.py**
+## Server (server.py):
 
 ```python
-from grpclib.server import Server
-from grpclib.utils import graceful_exit
-from grpclib.const import Status
-import asyncio
-import json
-from aiohttp import web
+from jsonrpcserver import method, serve
 
-async def handle(request):
-    data = await request.json()
-    name = data.get("name", "world")
-    return web.json_response({"message": f"Hello, {name}!"})
+@method
+def add(x, y):
+    return x + y
 
-async def main():
-    app = web.Application()
-    app.router.add_post('/hello', handle)
-    runner = web.AppRunner(app)
-    await runner.setup()
-    site = web.TCPSite(runner, 'localhost', 5000)
-    await site.start()
-    print("JSON RPC server running on http://localhost:5000/hello")
-    while True:
-        await asyncio.sleep(3600)
-
-if __name__ == '__main__':
-    asyncio.run(main())
+serve("localhost", 5000)
 ```
 
-#### **rpc_client.py**
+## Client (client.py):
 
 ```python
 import requests
+import json
 
-url = 'http://localhost:5000/hello'
-payload = {"name": "Alice"}
-
-response = requests.post(url, json=payload)
-print("Response:", response.json())
+payload = {
+    "jsonrpc": "2.0",
+    "method": "add",
+    "params": {"x": 5, "y": 3},
+    "id": 1
+}
+response = requests.post("http://localhost:5000", json=payload)
+print(response.json())
 ```
 
 ---
 
-## **TỔNG KẾT**
+## Kết luận:
 
-| Bài | Chủ đề            | Công nghệ         | Kết quả               |
-| --- | ----------------- | ----------------- | --------------------- |
-| 1   | Báo cáo lý thuyết | RabbitMQ          | Đã trình bày chi tiết |
-| 2   | Code minh họa     | RabbitMQ (pika)   | Gửi và nhận message   |
-| 3   | RPC dùng JSON     | gRPC (REST-style) | Gửi JSON và phản hồi  |
+Bài tập đã giúp em hiểu rõ về người trung gian truyền thông trong hệ thống phân tán (như RabbitMQ) và cách RPC giúp hai ứng dụng gọi-hồi giá trị trực tiếp như hàm cùng host.
 
----
-
----
+Bài demo đơn giản nhưng đủ để thể hiện được ý tưởng thiết kế và triển khai các hệ thống backend linh hoạt, tự động.
