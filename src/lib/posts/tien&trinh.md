@@ -12,7 +12,7 @@ excerpt: Ấn vào để xem thêm...
 
 ## CPU, GPU, RAM, Hiệu năng sử dụng của máy
 
-Thiết bị Dell Vostro 5415
+Thiết bị Dell Vostro 54155555555555555555555
 
 Thông số kỹ thuật
 
