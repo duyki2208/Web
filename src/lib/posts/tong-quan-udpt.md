@@ -1,5 +1,5 @@
 ---
-title: 'Tổng quan về hệ thống phân tán'
+title: "Tổng quan về hệ thống phân tán"
 date: '2025-04-29'
 updated: '2025-04-29'
 categories:
