@@ -1,24 +1,12 @@
 <script>
-	import { currentPage, isMenuOpen } from '../assets/js/store';
+	import { currentPage } from '$lib/assets/js/store.js';
 
-	let { href, children } = $props();
+	export let href;
+	export let children;
 
-	let isCurrentPage = $derived($currentPage.startsWith(href));
-
-	const maybeCloseMenu = () => {
-		if (href != $currentPage) {
-			isMenuOpen.set(false);
-		}
-	};
+	$: isCurrentPage = $currentPage.startsWith(href);
 </script>
 
-<li>
-	<a
-		{href}
-		onclick={maybeCloseMenu}
-		class:active={isCurrentPage}
-		aria-current={isCurrentPage ? 'page' : false}
-	>
-		{@render children?.()}
-	</a>
-</li>
+<a {href} class:active={isCurrentPage}>
+	<slot />
+</a>

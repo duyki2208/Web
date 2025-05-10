@@ -1,16 +1,15 @@
 <!-- This is the global layout file; it "wraps" every page on the site. (Or more accurately: is the parent component to every page component on the site.) -->
 <script>
-	import { run } from 'svelte/legacy';
-
+	import { onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { currentPage, isMenuOpen } from '../lib/assets/js/store.js';
-	import { navItems } from '$lib/config';
+	import { navItems, siteTitle, siteURL } from '$lib/config';
 	import { preloadCode } from '$app/navigation';
-	import { onMount } from 'svelte';
-	import { fade } from 'svelte/transition';
-	import { siteTitle, siteURL } from '$lib/config.js';
-	let { data, children } = $props();
+
+	export let data;
+	export let children;
 
 	const transitionIn = { delay: 150, duration: 150 };
 	const transitionOut = { duration: 100 };
@@ -19,9 +18,7 @@
 	 * Updates the global store with the current path. (Used for highlighting
 	 * the current page in the nav, but could be useful for other purposes.)
 	 **/
-	run(() => {
-		currentPage.set(data.path);
-	});
+	$: currentPage.set(data.path);
 
 	/**
 	 * This pre-fetches all top-level routes on the site in the background for faster loading.
@@ -65,7 +62,7 @@
 	<Header />
 	{#key data.path}
 		<main id="main" tabindex="-1" in:fade|global={transitionIn} out:fade|global={transitionOut}>
-			{@render children?.()}
+			<slot />
 		</main>
 	{/key}
 	<Footer />
